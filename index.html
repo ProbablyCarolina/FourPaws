@@ -3,233 +3,393 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Four Paws | Adăpost de Animale</title>
+    <title>Four Paws | Adăpost de Animale Modern</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Bricolage+Grotesque:wght@800&display=swap');
+
+        :root {
+            --brand-main: #ff3e81;
+            --brand-sec: #ff8a00;
+        }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
+            background-color: #fdfbff;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Bricolage Grotesque', sans-serif;
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            background: linear-gradient(135deg, var(--brand-sec), var(--brand-main));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-gradient {
-            background: linear-gradient(135deg, rgba(45, 11, 84, 0.85) 0%, rgba(20, 20, 20, 0.6) 100%);
+        .hero-mask {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
         }
 
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .section-gradient {
-            background: linear-gradient(180deg, #ffffff 0%, #fce7f3 100%);
+        .floating-anim {
+            animation: floating 3s ease-in-out infinite;
         }
 
-        .cta-gradient {
-            background: linear-gradient(90deg, #ff8a00 0%, #da1b60 100%);
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--brand-sec) 0%, var(--brand-main) 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px -5px rgba(255, 62, 129, 0.4);
+        }
+
+        .btn-gradient:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 25px -5px rgba(255, 62, 129, 0.5);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-main);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,138,0,0.15) 0%, rgba(255,62,129,0.15) 100%);
+            filter: blur(60px);
+            border-radius: 50%;
+            z-index: -1;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="text-slate-900 overflow-x-hidden">
 
     <!-- Navigație -->
-    <nav class="fixed w-full z-50 glass-nav border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center space-x-2">
-                    <i class="fas fa-paw text-3xl text-pink-600"></i>
-                    <span class="text-2xl font-extrabold tracking-tight">FOUR<span class="text-pink-600">PAWS</span></span>
+    <nav class="fixed w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto glass-card rounded-2xl px-8 py-4 flex justify-between items-center shadow-sm">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-pink-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-pink-200">
+                    <i class="fas fa-paw"></i>
                 </div>
-                <div class="hidden md:flex space-x-8 font-semibold">
-                    <a href="#home" class="hover:text-pink-600 transition">Acasă</a>
-                    <a href="#adopt" class="hover:text-pink-600 transition">Adoptă</a>
-                    <a href="#stories" class="hover:text-pink-600 transition">Povești</a>
-                    <a href="#team" class="hover:text-pink-600 transition">Echipa</a>
-                </div>
-                <a href="#donate" class="cta-gradient text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:scale-105 transition transform">
-                    Donează Acum
-                </a>
+                <span class="text-2xl font-extrabold tracking-tighter">FOUR<span class="text-pink-600">PAWS</span></span>
             </div>
+            
+            <div class="hidden md:flex space-x-10 font-bold text-sm uppercase tracking-widest text-slate-600">
+                <a href="#home" class="nav-link hover:text-pink-600 transition">Acasă</a>
+                <a href="#adopt" class="nav-link hover:text-pink-600 transition">Adoptă</a>
+                <a href="#stories" class="nav-link hover:text-pink-600 transition">Impact</a>
+                <a href="#team" class="nav-link hover:text-pink-600 transition">Echipa</a>
+            </div>
+
+            <a href="#donate" class="btn-gradient text-white px-8 py-3 rounded-xl font-bold text-sm tracking-wide">
+                DONEAZĂ
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
-        <!-- Imagine Fundal Nouă -->
-        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?q=80&w=2069&auto=format&fit=crop" 
-             alt="Câini fericiți" 
-             class="absolute inset-0 w-full h-full object-cover">
-        <div class="absolute inset-0 hero-gradient"></div>
-        
-        <div class="relative z-10 text-center px-4 max-w-4xl">
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
-                Găsește <span class="gradient-text">Fericirea</span> în Patru Lăbuțe
-            </h1>
-            <p class="text-xl text-slate-200 mb-10 max-w-2xl mx-auto">
-                Suntem un adăpost dedicat salvării, reabilitării și găsirii căminului perfect pentru animalele abandonate. Schimbă o viață astăzi.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="bg-white text-slate-900 px-10 py-4 rounded-full font-extrabold text-lg hover:bg-pink-50 transition shadow-2xl">
-                    Vezi Animalele
-                </button>
-                <button class="border-2 border-white text-white px-10 py-4 rounded-full font-extrabold text-lg hover:bg-white/10 transition">
-                    Cum Funcționează?
-                </button>
+    <section id="home" class="relative min-h-screen flex items-center pt-20">
+        <div class="blob" style="top: -100px; right: -100px;"></div>
+        <div class="blob" style="bottom: 100px; left: -200px;"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 order-2 lg:order-1">
+                <div class="inline-flex items-center space-x-2 bg-pink-50 text-pink-600 px-4 py-2 rounded-full font-bold text-xs tracking-widest uppercase">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-600"></span>
+                    </span>
+                    <span>Peste 200 de animale salvate anul acesta</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-extrabold leading-[0.9] tracking-tighter">
+                    Adoptă un <br>
+                    <span class="gradient-text">Prieten</span> <br>
+                    pe Viață.
+                </h1>
+                
+                <p class="text-lg text-slate-500 max-w-lg font-medium leading-relaxed">
+                    Nu suntem doar un adăpost, suntem un hub de fericire. Redefinim modul în care animalele abandonate își găsesc căminul prin dragoste și tehnologie.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <button class="btn-gradient text-white px-10 py-5 rounded-2xl font-extrabold text-lg flex items-center space-x-3">
+                        <span>Vezi Sufletele</span>
+                        <i class="fas fa-arrow-right text-sm opacity-70"></i>
+                    </button>
+                    <button class="bg-white border-2 border-slate-100 text-slate-900 px-10 py-5 rounded-2xl font-extrabold text-lg hover:bg-slate-50 transition flex items-center space-x-3">
+                        <i class="fas fa-play-circle text-pink-600"></i>
+                        <span>Povestea Noastră</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative order-1 lg:order-2">
+                <div class="relative z-10 floating-anim">
+                    <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=2071&auto=format&fit=crop" 
+                         alt="Cățel fericit" 
+                         class="rounded-[4rem] shadow-2xl object-cover w-full h-[600px] border-[16px] border-white">
+                </div>
+                <!-- Elemente de decor -->
+                <div class="absolute -bottom-10 -left-10 bg-white p-6 rounded-3xl shadow-xl z-20 flex items-center space-x-4 border border-slate-50">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xl">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div>
+                        <p class="font-extrabold text-slate-900">100% Sănătos</p>
+                        <p class="text-xs text-slate-400 font-bold">Vaccinat & Microcipat</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Secțiunea Adopție -->
-    <section id="adopt" class="py-24 max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-extrabold mb-4">Animale care își caută <span class="text-pink-600">Familia</span></h2>
-            <div class="w-24 h-1.5 cta-gradient mx-auto rounded-full"></div>
+    <section id="adopt" class="py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-xl">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">Cine îți va schimba <span class="text-pink-600">Lumea?</span></h2>
+                    <p class="text-slate-500 font-medium">Alege un tovarăș bazat pe personalitate, nu doar pe aspect. Fiecare dintre ei are un caracter unic.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <button class="p-4 rounded-xl border border-slate-200 hover:bg-slate-900 hover:text-white transition"><i class="fas fa-chevron-left"></i></button>
+                    <button class="p-4 rounded-xl border border-slate-200 hover:bg-slate-900 hover:text-white transition"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Card 1 -->
+                <div class="group relative bg-slate-50 rounded-[3rem] p-4 transition-all duration-500 hover:bg-pink-50 hover:-translate-y-4">
+                    <div class="relative h-[400px] overflow-hidden rounded-[2.5rem] mb-6 shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=624&auto=format&fit=crop" 
+                             class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Max">
+                        <div class="absolute top-4 left-4 bg-white/80 backdrop-blur px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-slate-900">Energic</div>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-3xl font-extrabold">Max</h3>
+                            <span class="text-pink-600 font-bold">2 ANI</span>
+                        </div>
+                        <p class="text-slate-500 font-medium text-sm mb-6">Expert în joacă și cel mai bun ascultător de povești de seară.</p>
+                        <button class="w-full py-4 bg-white rounded-2xl font-extrabold text-slate-900 shadow-sm border border-slate-100 group-hover:bg-slate-900 group-hover:text-white transition">Fă cunoștință</button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-slate-50 rounded-[3rem] p-4 transition-all duration-500 hover:bg-pink-50 hover:-translate-y-4">
+                    <div class="relative h-[400px] overflow-hidden rounded-[2.5rem] mb-6 shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2043&auto=format&fit=crop" 
+                             class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Luna">
+                        <div class="absolute top-4 left-4 bg-white/80 backdrop-blur px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-slate-900">Relaxată</div>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-3xl font-extrabold">Luna</h3>
+                            <span class="text-pink-600 font-bold">5 LUNI</span>
+                        </div>
+                        <p class="text-slate-500 font-medium text-sm mb-6">Regina confortului care îți va transforma canapeaua într-un spa.</p>
+                        <button class="w-full py-4 bg-white rounded-2xl font-extrabold text-slate-900 shadow-sm border border-slate-100 group-hover:bg-slate-900 group-hover:text-white transition">Fă cunoștință</button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-slate-50 rounded-[3rem] p-4 transition-all duration-500 hover:bg-pink-50 hover:-translate-y-4">
+                    <div class="relative h-[400px] overflow-hidden rounded-[2.5rem] mb-6 shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=694&auto=format&fit=crop" 
+                             class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="Rocky">
+                        <div class="absolute top-4 left-4 bg-white/80 backdrop-blur px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-slate-900">Loial</div>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-3xl font-extrabold">Rocky</h3>
+                            <span class="text-pink-600 font-bold">4 ANI</span>
+                        </div>
+                        <p class="text-slate-500 font-medium text-sm mb-6">Partenerul perfect pentru aventuri montane și cafele matinale.</p>
+                        <button class="w-full py-4 bg-white rounded-2xl font-extrabold text-slate-900 shadow-sm border border-slate-100 group-hover:bg-slate-900 group-hover:text-white transition">Fă cunoștință</button>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card Animal 1 -->
-            <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover transition duration-300">
-                <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?q=80&w=624&auto=format&fit=crop" alt="Golden Retriever" class="w-full h-72 object-cover">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-2xl font-bold">Max</h3>
-                        <span class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-sm font-bold">2 Ani</span>
+    <!-- Secțiunea Impact (Povești de Succes) -->
+    <section id="stories" class="py-32 relative overflow-hidden">
+        <div class="blob" style="top: 20%; left: 50%; width: 800px; height: 800px; opacity: 0.5;"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="bg-slate-900 rounded-[4rem] overflow-hidden relative">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="p-16 lg:p-24 flex flex-col justify-center">
+                        <div class="w-16 h-1 bg-pink-600 mb-8 rounded-full"></div>
+                        <h2 class="text-5xl lg:text-6xl text-white font-extrabold mb-10 tracking-tighter leading-tight">
+                            "L-am găsit pe <br>
+                            cel mai bun <br>
+                            <span class="text-pink-500">prieten.</span>"
+                        </h2>
+                        <p class="text-slate-400 text-lg mb-12 font-medium leading-relaxed italic">
+                            „Am venit la Four Paws căutând un câine, dar am plecat cu un nou membru al familiei. Procesul a fost incredibil de cald și profesionist.”
+                        </p>
+                        <div class="flex items-center space-x-6">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop" 
+                                 class="w-20 h-20 rounded-3xl object-cover border-4 border-slate-800" alt="Andrei">
+                            <div>
+                                <h4 class="text-xl font-extrabold text-white">Andrei Popescu</h4>
+                                <p class="text-pink-600 font-bold tracking-widest uppercase text-xs">A adoptat-o pe Bella</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-slate-600 mb-6">Un suflet plin de energie care iubește copiii și plimbările lungi în parc.</p>
-                    <button class="w-full py-3 rounded-xl border-2 border-slate-900 font-bold hover:bg-slate-900 hover:text-white transition">Detalii Adopție</button>
-                </div>
-            </div>
-
-            <!-- Card Animal 2 -->
-            <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover transition duration-300">
-                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2043&auto=format&fit=crop" alt="Pisică" class="w-full h-72 object-cover">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-2xl font-bold">Luna</h3>
-                        <span class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-sm font-bold">5 Luni</span>
+                    <div class="relative h-[400px] lg:h-auto">
+                        <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=688&auto=format&fit=crop" 
+                             class="absolute inset-0 w-full h-full object-cover" alt="Happy dog">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 lg:bg-gradient-to-l opacity-60"></div>
                     </div>
-                    <p class="text-slate-600 mb-6">Timidă la început, Luna este maestră la tors și la găsit cele mai însorite locuri din casă.</p>
-                    <button class="w-full py-3 rounded-xl border-2 border-slate-900 font-bold hover:bg-slate-900 hover:text-white transition">Detalii Adopție</button>
-                </div>
-            </div>
-
-            <!-- Card Animal 3 -->
-            <div class="bg-white rounded-3xl overflow-hidden shadow-xl card-hover transition duration-300">
-                <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?q=80&w=694&auto=format&fit=crop" alt="Terrier" class="w-full h-72 object-cover">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-2xl font-bold">Rocky</h3>
-                        <span class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-sm font-bold">4 Ani</span>
-                    </div>
-                    <p class="text-slate-600 mb-6">Rocky este un companion loial, perfect pentru o familie liniștită care stă la curte.</p>
-                    <button class="w-full py-3 rounded-xl border-2 border-slate-900 font-bold hover:bg-slate-900 hover:text-white transition">Detalii Adopție</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECȚIUNE NOUĂ: Povești de Succes -->
-    <section id="stories" class="py-24 bg-slate-900 text-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/2">
-                <h2 class="text-4xl font-extrabold mb-6">Povești care ne dau <span class="gradient-text">Speranță</span></h2>
-                <p class="text-slate-400 text-lg mb-8 italic">
-                    "L-am adoptat pe Bella acum un an. Era speriată și slabă, dar acum este sufletul casei noastre. Nu ne putem imagina viața fără ea."
-                </p>
-                <div class="flex items-center space-x-4">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop" class="w-16 h-16 rounded-full object-cover border-2 border-pink-500" alt="Utilizator">
-                    <div>
-                        <h4 class="font-bold">Andrei Popescu</h4>
-                        <p class="text-sm text-slate-500">Adoptator Fericit</p>
-                    </div>
-                </div>
+    <!-- Echipa Noastră -->
+    <section id="team" class="py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-24">
+                <span class="text-pink-600 font-extrabold tracking-[0.3em] uppercase text-xs mb-4 block">Salvatorii Noștri</span>
+                <h2 class="text-5xl font-extrabold tracking-tight">Oameni cu Inimă <span class="gradient-text">Mare</span></h2>
             </div>
-            <div class="md:w-1/2 relative">
-                <div class="bg-pink-600 absolute -inset-4 rounded-3xl rotate-3 -z-10 opacity-20"></div>
-                <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?q=80&w=688&auto=format&fit=crop" class="rounded-3xl shadow-2xl w-full h-[400px] object-cover" alt="Câine fericit adoptat">
-            </div>
-        </div>
-    </section>
 
-    <!-- SECȚIUNE NOUĂ: Echipa Noastră -->
-    <section id="team" class="py-24 section-gradient">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-4xl font-extrabold mb-12">Echipa din spatele <span class="text-pink-600">Zâmbetelor</span></h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="group">
-                    <div class="relative overflow-hidden rounded-full w-40 h-40 mx-auto mb-4 border-4 border-white shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=688&auto=format&fit=crop" class="w-full h-full object-cover transition group-hover:scale-110">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Membru 1 -->
+                <div class="text-center group">
+                    <div class="relative w-48 h-48 mx-auto mb-6">
+                        <div class="absolute inset-0 bg-pink-100 rounded-[3rem] rotate-6 transition group-hover:rotate-12 group-hover:bg-pink-200"></div>
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=688&auto=format&fit=crop" 
+                             class="absolute inset-0 w-full h-full object-cover rounded-[3rem] shadow-lg transition group-hover:-translate-y-2" alt="Elena">
                     </div>
-                    <h4 class="font-extrabold text-xl">Dr. Elena M.</h4>
-                    <p class="text-pink-600 font-semibold">Medic Veterinar</p>
+                    <h4 class="text-2xl font-extrabold text-slate-900">Dr. Elena M.</h4>
+                    <p class="text-slate-400 font-bold text-sm uppercase tracking-widest">Medic Veterinar</p>
                 </div>
-                <div class="group">
-                    <div class="relative overflow-hidden rounded-full w-40 h-40 mx-auto mb-4 border-4 border-white shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=687&auto=format&fit=crop" class="w-full h-full object-cover transition group-hover:scale-110">
+
+                <!-- Membru 2 -->
+                <div class="text-center group">
+                    <div class="relative w-48 h-48 mx-auto mb-6">
+                        <div class="absolute inset-0 bg-orange-100 rounded-[3rem] -rotate-6 transition group-hover:-rotate-12 group-hover:bg-orange-200"></div>
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=687&auto=format&fit=crop" 
+                             class="absolute inset-0 w-full h-full object-cover rounded-[3rem] shadow-lg transition group-hover:-translate-y-2" alt="Marius">
                     </div>
-                    <h4 class="font-extrabold text-xl">Marius T.</h4>
-                    <p class="text-pink-600 font-semibold">Specialist Dresaj</p>
+                    <h4 class="text-2xl font-extrabold text-slate-900">Marius T.</h4>
+                    <p class="text-slate-400 font-bold text-sm uppercase tracking-widest">Dresor</p>
                 </div>
-                <div class="group">
-                    <div class="relative overflow-hidden rounded-full w-40 h-40 mx-auto mb-4 border-4 border-white shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=761&auto=format&fit=crop" class="w-full h-full object-cover transition group-hover:scale-110">
+
+                <!-- Membru 3 -->
+                <div class="text-center group">
+                    <div class="relative w-48 h-48 mx-auto mb-6">
+                        <div class="absolute inset-0 bg-blue-100 rounded-[3rem] rotate-6 transition group-hover:rotate-12 group-hover:bg-blue-200"></div>
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=761&auto=format&fit=crop" 
+                             class="absolute inset-0 w-full h-full object-cover rounded-[3rem] shadow-lg transition group-hover:-translate-y-2" alt="Ioana">
                     </div>
-                    <h4 class="font-extrabold text-xl">Ioana V.</h4>
-                    <p class="text-pink-600 font-semibold">Coordonator Voluntari</p>
+                    <h4 class="text-2xl font-extrabold text-slate-900">Ioana V.</h4>
+                    <p class="text-slate-400 font-bold text-sm uppercase tracking-widest">Coordonator</p>
                 </div>
-                <div class="group">
-                    <div class="relative overflow-hidden rounded-full w-40 h-40 mx-auto mb-4 border-4 border-white shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1170&auto=format&fit=crop" class="w-full h-full object-cover transition group-hover:scale-110">
+
+                <!-- Membru 4 -->
+                <div class="text-center group">
+                    <div class="relative w-48 h-48 mx-auto mb-6">
+                        <div class="absolute inset-0 bg-green-100 rounded-[3rem] -rotate-6 transition group-hover:-rotate-12 group-hover:bg-green-200"></div>
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1170&auto=format&fit=crop" 
+                             class="absolute inset-0 w-full h-full object-cover rounded-[3rem] shadow-lg transition group-hover:-translate-y-2" alt="Radu">
                     </div>
-                    <h4 class="font-extrabold text-xl">Radu S.</h4>
-                    <p class="text-pink-600 font-semibold">Logistica & Hrana</p>
+                    <h4 class="text-2xl font-extrabold text-slate-900">Radu S.</h4>
+                    <p class="text-slate-400 font-bold text-sm uppercase tracking-widest">Logistică</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="donate" class="bg-slate-900 text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div>
-                <div class="flex items-center space-x-2 mb-6">
-                    <i class="fas fa-paw text-2xl text-pink-500"></i>
-                    <span class="text-xl font-extrabold">FOURPAWS</span>
+    <footer id="donate" class="bg-slate-50 pt-24 pb-12 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-16 mb-20">
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-pink-600 rounded-lg flex items-center justify-center text-white text-xs">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <span class="text-xl font-extrabold tracking-tighter">FOURPAWS</span>
+                    </div>
+                    <p class="text-slate-500 font-medium text-sm leading-relaxed">
+                        Misiunea noastră este să creăm punți de iubire între suflete abandonate și familii dornice să ofere un cămin.
+                    </p>
                 </div>
-                <p class="text-slate-400">Strada Speranței, Nr. 42, București.<br>Program vizite: L-V 09:00 - 18:00</p>
-            </div>
-            <div>
-                <h4 class="font-extrabold text-lg mb-6">Link-uri Rapide</h4>
-                <ul class="space-y-4 text-slate-400">
-                    <li><a href="#" class="hover:text-white">Formular Adopție</a></li>
-                    <li><a href="#" class="hover:text-white">Ghid Îngrijire</a></li>
-                    <li><a href="#" class="hover:text-white">Parteneri</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-extrabold text-lg mb-6">Urmărește-ne</h4>
-                <div class="flex space-x-6 text-2xl">
-                    <a href="#" class="hover:text-pink-500 transition"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-pink-500 transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-pink-500 transition"><i class="fab fa-tiktok"></i></a>
+                
+                <div>
+                    <h5 class="font-extrabold text-slate-900 mb-8 uppercase tracking-widest text-xs">Meniu</h5>
+                    <ul class="space-y-4 font-bold text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-pink-600 transition">Animale disponibile</a></li>
+                        <li><a href="#" class="hover:text-pink-600 transition">Cum adopti?</a></li>
+                        <li><a href="#" class="hover:text-pink-600 transition">Donații</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="font-extrabold text-slate-900 mb-8 uppercase tracking-widest text-xs">Contact</h5>
+                    <ul class="space-y-4 font-bold text-sm text-slate-500">
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-map-marker-alt text-pink-600"></i>
+                            <span>București, Sector 2</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-pink-600"></i>
+                            <span>+40 712 345 678</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
+                    <h5 class="font-extrabold text-slate-900 mb-4 tracking-tight">Newsletter</h5>
+                    <p class="text-xs text-slate-500 mb-6 font-bold">Primește povești fericite săptămânal.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Emailul tău" class="w-full bg-slate-50 border-none rounded-l-xl px-4 py-3 text-xs font-bold focus:ring-2 focus:ring-pink-500">
+                        <button class="bg-pink-600 text-white px-4 rounded-r-xl"><i class="fas fa-paper-plane"></i></button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="text-center mt-12 pt-8 border-t border-slate-800 text-slate-500 text-sm">
-            © 2024 Four Paws Shelter. Construit cu dragoste pentru animale.
+
+            <div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-slate-100 gap-6">
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">© 2024 Four Paws. Toate drepturile rezervate.</p>
+                <div class="flex space-x-6 text-slate-400">
+                    <a href="#" class="hover:text-pink-600 transition"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="hover:text-pink-600 transition"><i class="fab fa-facebook text-xl"></i></a>
+                    <a href="#" class="hover:text-pink-600 transition"><i class="fab fa-tiktok text-xl"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
